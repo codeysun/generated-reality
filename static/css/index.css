@@ -324,3 +324,86 @@ body {
 .video-label.right {
   right: 10px;
 }
+
+/* Video Overlay Hover Effect */
+.video-overlay-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000;
+}
+
+.video-overlay-container .video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.video-overlay-container .video-left,
+.video-overlay-container .video-right {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.video-overlay-container .video-left {
+  z-index: 2;
+  opacity: 0;
+  clip-path: none;
+  transition: opacity 0.3s ease;
+}
+
+.video-overlay-container:hover .video-left {
+  opacity: 0.8;
+}
+
+.video-overlay-container .video-right {
+  z-index: 1;
+  opacity: 1;
+}
+
+/* Method and Scene Selectors */
+.method-selector,
+.scene-selector {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.method-selector button,
+.scene-selector button {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.method-selector button:hover,
+.scene-selector button:hover {
+  border-color: #3273dc;
+}
+
+.method-selector button.active,
+.scene-selector button.active {
+  background: #3273dc;
+  color: white;
+  border-color: #3273dc;
+}
+
+.scene-selector {
+  margin-top: 1rem;
+}

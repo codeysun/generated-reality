@@ -149,50 +149,81 @@
 
   <!-- <br> -->
   <div class="hero-body">
+    <div class="columns is-centered has-text-centered">
+      <div class="content has-text-justified">
+        <p>
+          <i>Hover to visualize the (2D) hand pose conditioning. 3D hand and head pose conditioning not shown.</i>
+        </p>
+      </div>
+    </div>
 
     <!-- ================================================================================================================================  -->
     <div id="results-carousel" class="carousel results-carousel">
 
       <div class="item">
-        <!-- Video comparison slider -->
-        <div class="video-comparison-container" id="space-video-container">
-          <div class="video-comparison-wrapper">
+        <!-- Video overlay hover -->
+        <div class="video-overlay-container" id="space-video-container">
+          <div class="video-wrapper">
             <video class="video-left" id="space-video-left" autoplay muted loop playsinline preload="metadata">
               <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
             </video>
             <video class="video-right" id="space-video-right" autoplay muted loop playsinline preload="metadata">
               <source src="static/videos/space.mp4" type="video/mp4">
             </video>
-            <div class="comparison-slider" id="space-comparison-slider"></div>
-            <div class="video-label left" id="space-label-left">Ours</div>
-            <div class="video-label right" id="space-label-right">Baseline</div>
           </div>
         </div>
-        </p>
       </div>
 
       <div class="item">
-        <video id="dog" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/dog.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="dog-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="dog-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/04_pet_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="dog-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/dog.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
 
       <div class="item">
-        <video id="fight" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/fight.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="fight-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="fight-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/02_fight_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="fight-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/fight.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
 
       <div class="item">
-        <video id="push2" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/push2.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="push2-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="push2-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/06_push_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="push2-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/push2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
 
       <div class="item">
-        <video id="boat" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/boat.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="boat-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="boat-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="boat-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/boat.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -200,35 +231,74 @@
     <div id="results-carousel" class="carousel results-carousel">
 
       <div class="item">
-        <video id="golf" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/golf.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="golf-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="golf-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/00_golf_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="golf-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/golf.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
         </p>
       </div>
 
       <div class="item">
-        <video id="boxing" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/boxing.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="boxing-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="boxing-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/02_fight_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="boxing-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/boxing.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        </p>
       </div>
 
       <div class="item">
-        <video id="cat" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/cat.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="torch-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="torch-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="torch-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/torch.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        </p>
       </div>
 
       <div class="item">
-        <video id="clap" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/clap.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="clap-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="clap-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/05_wave_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="clap-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/clap.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        </p>
       </div>
 
       <div class="item">
-        <video id="torch" preload="metadata" autoplay muted loop playsinline>
-          <source src="static/videos/torch.mp4" type="video/mp4">
-        </video>
+        <div class="video-overlay-container" id="cat-video-container">
+          <div class="video-wrapper">
+            <video class="video-left" id="cat-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/03_cat_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="cat-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/cat.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
+
 
     </div>
     <br>
@@ -270,7 +340,7 @@
             that captures hand motion more reliably. Our method achieves the best hand pose accuracy among all
             baselines, especially when hands are partly occluded at the boundaries of the frame.
           </p>
-          <div class="label-row media-content">
+          <!-- <div class="label-row media-content">
             <span><b>Baseline</b></span>
             <span><b>HPP Cond.</b></span>
             <span><b>Video Cond.</b></span>
@@ -278,7 +348,22 @@
           </div>
           <video class="responsive-video" muted autoplay loop playsinline>
             <source src="static/videos/hybrid_comparison.mp4" type="video/mp4">
-          </video>
+          </video> -->
+
+          <div class="item">
+            <!-- Video comparison slider -->
+            <div class="video-comparison-container" id="space-video-container">
+              <div class="video-comparison-wrapper">
+                <video class="video-left" id="space-video-left" autoplay muted loop playsinline preload="metadata">
+                  <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
+                </video>
+                <video class="video-right" id="space-video-right" autoplay muted loop playsinline preload="metadata">
+                  <source src="static/videos/space.mp4" type="video/mp4">
+                </video>
+                <div class="comparison-slider" id="space-comparison-slider"></div>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- <br /> -->
         <!--/ Hybrid Conditioning. -->

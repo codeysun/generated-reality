@@ -203,4 +203,124 @@ $(document).ready(function () {
     document.addEventListener('touchmove', moveSlider, { passive: true });
   });
 
+  /* Advanced Video Comparison Logic */
+  const videoState = {
+    scene: '17',
+    methods: {
+      left: 'base',
+      right: 'gt'
+    }
+  };
+
+  const methodSelectors = {
+    left: document.getElementById('left-method-selector'),
+    right: document.getElementById('right-method-selector')
+  };
+
+  const sceneSelector = document.getElementById('scene-selector');
+  const videos = {
+    left: document.getElementById('video-left'),
+    right: document.getElementById('video-right')
+  };
+  const labels = {
+    left: document.getElementById('label-left'),
+    right: document.getElementById('label-right')
+  };
+
+  // Helper to get formatted filename
+  function getVideoPath(method, scene) {
+    // Handle the specific inconsistency for hybrid scene 35
+    if (method === 'hybrid' && scene === '35') {
+      return `./static/videos/hybrid/${method}-clip-00000${scene}.mp4`; // Note the extra 0
+    }
+    return `./static/videos/hybrid/${method}-clip-0000${scene}.mp4`;
+  }
+
+  function updateVideoSources() {
+    // Update Left Video
+    const leftPath = getVideoPath(videoState.methods.left, videoState.scene);
+    videos.left.src = leftPath;
+    labels.left.textContent = getMethodLabel(videoState.methods.left);
+
+    // Update Right Video
+    const rightPath = getVideoPath(videoState.methods.right, videoState.scene);
+    videos.right.src = rightPath;
+    labels.right.textContent = getMethodLabel(videoState.methods.right);
+
+    // Reload videos to apply changes
+    videos.left.load();
+    videos.right.load();
+    // Attempt play (browsers might block unmuted autoplay, but these are muted)
+    // videos.left.play().catch(e => console.log("Auto-play prevented (left)", e));
+    // videos.right.play().catch(e => console.log("Auto-play prevented (right)", e));
+
+    // Sync videos? They are short loops so maybe not strictly necessary for this demo, 
+    // but resetting time to 0 ensures they start together.
+    videos.left.currentTime = 0;
+    videos.right.currentTime = 0;
+  }
+
+  function getMethodLabel(methodKey) {
+    const btn = document.querySelector(`.method-selector button[data-method="${methodKey}"]`);
+    return btn ? btn.textContent : methodKey;
+  }
+
+  function updateActiveButtons() {
+    // Update Method Selectors
+    ['left', 'right'].forEach(side => {
+      const buttons = methodSelectors[side].querySelectorAll('button');
+      buttons.forEach(btn => {
+        if (btn.dataset.method === videoState.methods[side]) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    });
+
+    // Update Scene Selector
+    const sceneButtons = sceneSelector.querySelectorAll('button');
+    sceneButtons.forEach(btn => {
+      if (btn.dataset.scene === videoState.scene) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  // Initialize
+  if (methodSelectors.left && methodSelectors.right && sceneSelector) {
+    // Event Listeners for Method Selectors
+    ['left', 'right'].forEach(side => {
+      methodSelectors[side].addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+          const newMethod = e.target.dataset.method;
+          if (newMethod !== videoState.methods[side]) {
+            videoState.methods[side] = newMethod;
+            updateVideoSources();
+            updateActiveButtons();
+          }
+        }
+      });
+    });
+
+    // Event Listener for Scene Selector
+    sceneSelector.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const newScene = e.target.dataset.scene;
+        if (newScene !== videoState.scene) {
+          videoState.scene = newScene;
+          updateVideoSources();
+          updateActiveButtons();
+        }
+      }
+    });
+
+    // Initial Update
+    updateActiveButtons();
+    // Optional: force load initial sources just to be sure, though HTML has hardcoded initial values
+    // updateVideoSources(); 
+  }
+
 })
