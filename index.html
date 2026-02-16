@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Generated Reality: Human-centric World Simulation using Interactive Video Generation with Hand and Camera Control">
+  <meta name="keywords" content="World Models, Video Generation, Virtual Reality">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generated Reality: Human-centric World Simulation using Interactive Video Generation with Hand and Camera
+    Control</title>
+
+  <!-- <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title publication-title"><strong>Generated Reality:</strong> Human-centric World Simulation using
+            Interactive Video Generation with Hand and Camera Control</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://lafoucc.github.io/">Linxi Xie</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://codeysun.github.io/">Lisong C. Sun</a><sup>*1</sup>,</span>
+            <span class="author-block">
+              <a href="https://aneall.github.io/">Ashley Neall</a><sup>*1,3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://wutong16.github.io/">Tong Wu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://primecai.github.io/">Shengqu Cai</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://stanford.edu/~gordonwz/">Gordon Wetzstein</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Stanford University,</span>
+            <span class="author-block"><sup>2</sup>NYU Shanghai,</span>
+            <span class="author-block"><sup>3</sup>UNC Chapel Hill</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_final2.mp4" type="video/mp4">
+      </video>
+      <div class="video-controls">
+        <button class="play-pause-btn" id="teaser-play-pause-btn">
+          <i class="fas fa-pause"></i>
+        </button>
+        <div class="progress-container" id="teaser-progress-container">
+          <div class="progress-bar" id="teaser-progress-bar"></div>
+        </div>
+        <span class="time-display" id="teaser-time-display">0:00 / 0:00</span>
+      </div>
+      <!-- <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Generated Reality</span> is a concept that turns human-tracked data into immersive
+        experiences.
+      </h2> -->
+    </div>
+  </div>
+
+  <!-- <div class="hero-body" style="padding-bottom: 0rem;"> -->
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h4 class="title is-4" style="color: #3273dc; margin-bottom: 1rem;">TL;DR</h4>
+          <div class="content has-text-justified"
+            style="font-size: 1.25rem; line-height: 1.6; background-color: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3273dc;">
+            <p>
+              <strong>Generated Reality</strong> is a concept that turns human-tracked data into an
+              autoregressively generated video, enabling interactive human-centric experiences supporting dexterous
+              hand-object interacctions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Text-to-Video Generations -->
+<section class="hero is-small">
+  <hr>
+  <!-- <br>
+  <br>
+  <br> -->
+  <!-- <hr> -->
+
+  <!-- <div class="container " id="text2short">
+    <h2 id="obj-comparison" class="title is-3 has-text-centered">Text-to-Video Generations
+    </h2>
+  </div> -->
+
+  <!-- <br> -->
+  <div class="hero-body">
+
+    <!-- ================================================================================================================================  -->
+    <div id="results-carousel" class="carousel results-carousel">
+
+      <div class="item">
+        <!-- Video comparison slider -->
+        <div class="video-comparison-container" id="space-video-container">
+          <div class="video-comparison-wrapper">
+            <video class="video-left" id="space-video-left" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
+            </video>
+            <video class="video-right" id="space-video-right" autoplay muted loop playsinline preload="metadata">
+              <source src="static/videos/space.mp4" type="video/mp4">
+            </video>
+            <div class="comparison-slider" id="space-comparison-slider"></div>
+            <div class="video-label left" id="space-label-left">Ours</div>
+            <div class="video-label right" id="space-label-right">Baseline</div>
+          </div>
+        </div>
+        </p>
+      </div>
+
+      <div class="item">
+        <video id="dog" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/dog.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="item">
+        <video id="fight" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/fight.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="item">
+        <video id="push2" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/push2.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="item">
+        <video id="boat" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/boat.mp4" type="video/mp4">
+        </video>
+      </div>
+
+    </div>
+
+    <div id="results-carousel" class="carousel results-carousel">
+
+      <div class="item">
+        <video id="golf" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/golf.mp4" type="video/mp4">
+        </video>
+        </p>
+      </div>
+
+      <div class="item">
+        <video id="boxing" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/boxing.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="item">
+        <video id="cat" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/cat.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="item">
+        <video id="clap" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/clap.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="item">
+        <video id="torch" preload="metadata" autoplay muted loop playsinline>
+          <source src="static/videos/torch.mp4" type="video/mp4">
+        </video>
+      </div>
+
+    </div>
+    <br>
+    <hr>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- How it works -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How it works</h2>
+        <div class="content has-text-justified">
+          <img src="static/images/pipeline.png" alt="Pipeline" class="pipeline-image media-content">
+          <p>
+            We track the user’s head and hand poses with a commercial VR headset. Hand motion is represented using the
+            UmeTrack, which provides the wrist pose and 20 joint angles per hand. Our conditioning uses a hybrid 2D–3D
+            scheme, combining a 2D image of hand skeleton and the 3D model hand-pose parameters. Features extracted from
+            these modules are combined with the head pose features via token addition and fed into the DiT. The model
+            then autoregressively generates new frames.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ How it works. -->
+    <br>
+
+    <!-- Ablations -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Ablations</h2>
+
+        <!-- Hybrid Conditioning -->
+        <h3 class="title is-4">Hand Motion Conditioning Strategies</h3>
+        <div class="content has-text-justified">
+          <p>
+            We conduct a comprehensive ablation of hand-pose conditioning strategies and propose a 2D–3D hybrid approach
+            that captures hand motion more reliably. Our method achieves the best hand pose accuracy among all
+            baselines, especially when hands are partly occluded at the boundaries of the frame.
+          </p>
+          <div class="label-row media-content">
+            <span><b>Baseline</b></span>
+            <span><b>HPP Cond.</b></span>
+            <span><b>Video Cond.</b></span>
+            <span><b>Ours</b></span>
+          </div>
+          <video class="responsive-video" muted autoplay loop playsinline>
+            <source src="static/videos/hybrid_comparison.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!-- <br /> -->
+        <!--/ Hybrid Conditioning. -->
+
+        <!-- Joint Conditioning -->
+        <h3 class="title is-4">Joint Hand–Camera Conditioning</h3>
+        <div class="content has-text-justified">
+          <p>
+            We further extend this framework to jointly condition on both hand and camera poses. Our joint-conditioning
+            model correctly predicts user intent by reaching toward the correct cup on the left and placing the hand
+            faithfully on the table, enabling accurate hand–object interaction.
+          </p>
+          <div class="label-row media-content">
+            <span><b>GT</b></span>
+            <span><b>Camera-Ctrl</b></span>
+            <span><b>Hand-Ctrl</b></span>
+            <span><b>Ours</b></span>
+          </div>
+          <video class="responsive-video" muted autoplay loop playsinline>
+            <source src="static/videos/joint_comparison.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--/ Joint Conditioning. -->
+
+      </div>
+    </div>
+    <!--/ Ablations. -->
+    <br>
+
+    <!-- System -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">The Generated Reality System</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We develop our generated reality system by distilling the bidirectional model into an autoregressive variant
+            that runs at interactive framerates on a VR headset. Using live tracked hand and head poses as conditioning
+            signals, the system streams generated video directly to the device. In user studies, the hand-conditioned
+            system enables significantly more accurate task completion and a much higher perceived level of control
+            compared to the baseline.
+          </p>
+          <video class="responsive-video media-content" muted autoplay loop playsinline>
+            <source src="static/videos/user_study_final.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <!--/ System -->
+
+  </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{xie2026generated,
+  author    = {Xie, Linxi and Sun, Lisong C. and Neall, Ashley and Wu, Tong and Cai, Shengqu and Wetzstein, Gordon},
+  title     = {Generated Reality: Human-centric World Simulation using Interactive Video Generation with Hand and Camera Control},
+  journal   = {arXiv preprint arXiv:TODO},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+
+
+
+
+<!-- Demo -->
+<!-- <section class="section">
+    <div class="content-container">
+      <h2 class="title">Text-to-video generations</h2>
+
+      <p class="content-left">
+        Leveraging the implicit world knowledge of foundation video models, our system generalizes to diverse scenarios
+        with complex, human-centric interactions.
+      </p>
+
+      <div class="video-grid-2col">
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/05_wave.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            A quaint <b>A-frame cottage</b>… turquoise waters and sandy beaches… palm trees sway in the background…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/04_pet.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            A bright <b>outdoor park</b> on a clear day… a friendly <b>golden retriever</b> sits obediently…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/02_fight.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            A gritty <b>medieval dungeon</b>… the right hand wields a <b>steel longsword</b>… an <b>armored soldier</b>
+            charges forward…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/0_golf.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            A lush green <b>golf course</b>… hands are <b>swinging a golf club</b>… a golf buggy and caddy stand ready…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/06_push.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            <b>Pushes the wooden door</b> open… revealing a magical <b>winter forest</b>… a vintage lamppost glows
+            warmly…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/01_steering.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            <b>Driving on a highway</b> in a modern car… a green countryside with trees on a bright clear summer day…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/03_cat.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            <b>Holding a cat wand toy</b> with a fuzzy pom-pom ball… a <b>playful domestic cat</b> swipes repeatedly…
+          </figcaption>
+        </figure>
+
+        <figure class="vid-card">
+          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
+            <source src="static/videos/07_waving.mp4" type="video/mp4">
+          </video>
+          <figcaption class="vid-cap">
+            Wearing <b>astronaut gloves</b>, grips the shaft of <b>a waving flag</b>… a vibrant <b>alien landscape</b>
+            under a colorful sky…
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section> -->
+
+<footer class="footer">
+  <div class="container" align="center">
+    <div class="column is-8">
+      <div class="content">
+        <p style="color:black;">
+          This website template is adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a
+            href="https://rayrope.github.io/">RayRoPE</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</html>
