@@ -329,67 +329,118 @@
 
     <!-- Ablations -->
     <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Ablations</h2>
+      <div class="column">
+        <div class="content">
+          <!-- <h2 class="title is-3">Ablations</h2> -->
 
-        <!-- Hybrid Conditioning -->
-        <h3 class="title is-4">Hand Motion Conditioning Strategies</h3>
-        <div class="content has-text-justified">
-          <p>
-            We conduct a comprehensive ablation of hand-pose conditioning strategies and propose a 2D–3D hybrid approach
-            that captures hand motion more reliably. Our method achieves the best hand pose accuracy among all
-            baselines, especially when hands are partly occluded at the boundaries of the frame.
-          </p>
-          <!-- <div class="label-row media-content">
-            <span><b>Baseline</b></span>
-            <span><b>HPP Cond.</b></span>
-            <span><b>Video Cond.</b></span>
-            <span><b>Ours</b></span>
-          </div>
-          <video class="responsive-video" muted autoplay loop playsinline>
-            <source src="static/videos/hybrid_comparison.mp4" type="video/mp4">
-          </video> -->
+          <!-- Hybrid Conditioning -->
+          <h3 class="title is-4">Hand Motion Conditioning</h3>
+          <div class="content has-text-justified">
+            <p>
+              We conduct a comprehensive ablation of hand-pose conditioning strategies and propose a 2D–3D hybrid
+              approach that captures hand motion more reliably. Our method achieves the best hand pose accuracy among
+              all baselines.
+            </p>
 
-          <div class="item">
-            <!-- Video comparison slider -->
-            <div class="video-comparison-container" id="space-video-container">
-              <div class="video-comparison-wrapper">
-                <video class="video-left" id="space-video-left" autoplay muted loop playsinline preload="metadata">
-                  <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
-                </video>
-                <video class="video-right" id="space-video-right" autoplay muted loop playsinline preload="metadata">
-                  <source src="static/videos/space.mp4" type="video/mp4">
-                </video>
-                <div class="comparison-slider" id="space-comparison-slider"></div>
+            <div class="item">
+              <!-- Method selectors -->
+              <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem;">
+                <div>
+                  <p class="has-text-centered is-size-7" style="margin-bottom: 0.5rem;"><strong>Method:</strong>
+                  </p>
+                  <div class="method-selector" id="right-method-selector">
+                    <button data-method="base">Base</button>
+                    <button data-method="hpp">HPP Cond.</button>
+                    <button data-method="skeleton">2D Cond.</button>
+                    <button data-method="hybrid">Ours</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video comparison slider -->
+              <div class="video-comparison-container" id="nvs-video-container">
+                <div class="video-comparison-wrapper">
+                  <video class="video-left" id="video-left" autoplay muted loop playsinline preload="metadata">
+                    <source src="static/videos/hybrid/gt-clip-000017.mp4" type="video/mp4">
+                  </video>
+                  <video class="video-right" id="video-right" autoplay muted loop playsinline preload="metadata">
+                    <source src="static/videos/hybrid/hybrid-clip-000017.mp4" type="video/mp4">
+                  </video>
+                  <div class="comparison-slider" id="comparison-slider"></div>
+                  <!-- Labels will be updated dynamically via JS, but we can keep these for structure or remove if unused in CSS/JS logic for text overlay -->
+                  <div class="video-label left" id="label-left">Ground Truth</div>
+                  <div class="video-label right" id="label-right">Ours</div>
+                </div>
+              </div>
+
+              <!-- Scene selector -->
+              <p class="has-text-centered is-size-7" style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Select
+                  Scene:</strong></p>
+              <div class="scene-selector" id="scene-selector">
+                <button data-scene="17" class="active">Clip 1</button>
+                <button data-scene="35">Clip 2</button>
               </div>
             </div>
           </div>
         </div>
-        <!-- <br /> -->
-        <!--/ Hybrid Conditioning. -->
+      </div>
+      <!-- <br /> -->
+      <!--/ Hybrid Conditioning. -->
 
-        <!-- Joint Conditioning -->
-        <h3 class="title is-4">Joint Hand–Camera Conditioning</h3>
-        <div class="content has-text-justified">
-          <p>
-            We further extend this framework to jointly condition on both hand and camera poses. Our joint-conditioning
-            model correctly predicts user intent by reaching toward the correct cup on the left and placing the hand
-            faithfully on the table, enabling accurate hand–object interaction.
-          </p>
-          <div class="label-row media-content">
-            <span><b>GT</b></span>
-            <span><b>Camera-Ctrl</b></span>
-            <span><b>Hand-Ctrl</b></span>
-            <span><b>Ours</b></span>
+      <!-- Joint Conditioning -->
+      <div class="column">
+        <div class="content">
+          <h3 class="title is-4">Joint Hand–Camera Conditioning</h3>
+          <div class="content has-text-justified">
+            <p>
+              We further extend this framework to jointly condition on both hand and camera poses.
+              Our joint conditioning model disambiguates hand and head motion, enabling accurate object
+              interactions.
+            </p>
+
+            <div class="item">
+              <!-- Method selectors -->
+              <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem;">
+                <div>
+                  <p class="has-text-centered is-size-7" style="margin-bottom: 0.5rem;"><strong>Method:</strong>
+                  </p>
+                  <div class="method-selector" id="joint-right-method-selector">
+                    <button data-method="camera">Camera-Ctrl</button>
+                    <button data-method="hybrid">Hand-Ctrl</button>
+                    <button data-method="joint">Ours</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video comparison slider -->
+              <div class="video-comparison-container" id="joint-nvs-video-container">
+                <div class="video-comparison-wrapper">
+                  <video class="video-left" id="joint-video-left" autoplay muted loop playsinline preload="metadata">
+                    <source src="static/videos/joint/gt-clip-000001.mp4" type="video/mp4">
+                  </video>
+                  <video class="video-right" id="joint-video-right" autoplay muted loop playsinline preload="metadata">
+                    <source src="static/videos/joint/joint-clip-000001.mp4" type="video/mp4">
+                  </video>
+                  <div class="comparison-slider" id="joint-comparison-slider"></div>
+                  <div class="video-label left" id="joint-label-left">Ground Truth</div>
+                  <div class="video-label right" id="joint-label-right">Ours</div>
+                </div>
+              </div>
+
+              <!-- Scene selector -->
+              <p class="has-text-centered is-size-7" style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Select
+                  Scene:</strong></p>
+              <div class="scene-selector" id="joint-scene-selector">
+                <button data-scene="01" class="active">Clip 1</button>
+                <button data-scene="17">Clip 2</button>
+              </div>
+            </div>
           </div>
-          <video class="responsive-video" muted autoplay loop playsinline>
-            <source src="static/videos/joint_comparison.mp4" type="video/mp4">
-          </video>
         </div>
-        <!--/ Joint Conditioning. -->
-
       </div>
     </div>
+    <!--/ Joint Conditioning. -->
+
     <!--/ Ablations. -->
     <br>
 
@@ -400,15 +451,24 @@
 
         <div class="content has-text-justified">
           <p>
-            We develop our generated reality system by distilling the bidirectional model into an autoregressive variant
-            that runs at interactive framerates on a VR headset. Using live tracked hand and head poses as conditioning
-            signals, the system streams generated video directly to the device. In user studies, the hand-conditioned
-            system enables significantly more accurate task completion and a much higher perceived level of control
-            compared to the baseline.
+            We develop our Generated Reality system by distilling the bidirectional model into an autoregressive variant
+            that runs at interactive framerates on a VR headset. Using live-tracked hand and head poses as controls,
+            the system streams generated video directly to the headset. In our user studies, the system enables
+            significantly more accurate task completion and higher perceived levels of control compared to the
+            baseline.
           </p>
-          <video class="responsive-video media-content" muted autoplay loop playsinline>
+          <video id="user-study" muted autoplay loop playsinline height="100%">
             <source src="static/videos/user_study_final.mp4" type="video/mp4">
           </video>
+          <div class="video-controls">
+            <button class="play-pause-btn" id="user-study-play-pause-btn">
+              <i class="fas fa-pause"></i>
+            </button>
+            <div class="progress-container" id="user-study-progress-container">
+              <div class="progress-bar" id="user-study-progress-bar"></div>
+            </div>
+            <span class="time-display" id="user-study-time-display">0:00 / 0:00</span>
+          </div>
         </div>
       </div>
     </div>

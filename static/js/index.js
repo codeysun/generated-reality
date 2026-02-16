@@ -76,78 +76,89 @@ $(document).ready(function () {
 
   bulmaSlider.attach();
 
-  /* Teaser Video Controls */
-  const video = document.getElementById('teaser');
-  const playPauseBtn = document.getElementById('teaser-play-pause-btn');
-  const progressContainer = document.getElementById('teaser-progress-container');
-  const progressBar = document.getElementById('teaser-progress-bar');
-  const timeDisplay = document.getElementById('teaser-time-display');
+  /* Video Controls */
+  function setupVideoControls(videoId) {
+    const video = document.getElementById(videoId);
+    const playPauseBtn = document.getElementById(`${videoId}-play-pause-btn`);
+    const progressContainer = document.getElementById(`${videoId}-progress-container`);
+    const progressBar = document.getElementById(`${videoId}-progress-bar`);
+    const timeDisplay = document.getElementById(`${videoId}-time-display`);
 
-  if (video && playPauseBtn && progressContainer && progressBar && timeDisplay) {
-    if (video.readyState >= 1) { // 1 = HAVE_METADATA
-      timeDisplay.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
-    }
-    video.addEventListener('loadedmetadata', () => {
-      timeDisplay.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
-    });
+    if (video && playPauseBtn && progressContainer && progressBar && timeDisplay) {
+      const updateTimeDisplay = () => {
+        timeDisplay.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
+      };
 
-    playPauseBtn.addEventListener('click', () => {
-      if (video.paused || video.ended) {
-        video.play();
-      } else {
-        video.pause();
+      if (video.readyState >= 1) { // 1 = HAVE_METADATA
+        updateTimeDisplay();
       }
-    });
+      video.addEventListener('loadedmetadata', updateTimeDisplay);
 
-    video.addEventListener('play', () => {
-      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    });
+      playPauseBtn.addEventListener('click', () => {
+        if (video.paused || video.ended) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
 
-    video.addEventListener('pause', () => {
-      playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-    });
+      video.addEventListener('play', () => {
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      });
 
-    video.addEventListener('timeupdate', () => {
-      const percentage = (video.currentTime / video.duration) * 100;
-      progressBar.style.width = percentage + '%';
-      timeDisplay.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
-    });
+      video.addEventListener('pause', () => {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      });
 
-    let isDragging = false;
+      video.addEventListener('timeupdate', () => {
+        const percentage = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = percentage + '%';
+        updateTimeDisplay();
+      });
 
-    progressContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      progressContainer.classList.add('dragging');
-      seek(e);
-    });
+      let isDragging = false;
 
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
+      const startDrag = (e) => {
+        isDragging = true;
+        progressContainer.classList.add('dragging');
         seek(e);
+      };
+
+      const stopDrag = () => {
+        if (isDragging) {
+          isDragging = false;
+          progressContainer.classList.remove('dragging');
+        }
+      };
+
+      const doDrag = (e) => {
+        if (isDragging) {
+          seek(e);
+        }
+      };
+
+      progressContainer.addEventListener('mousedown', startDrag);
+      document.addEventListener('mousemove', doDrag);
+      document.addEventListener('mouseup', stopDrag);
+
+      function seek(e) {
+        const rect = progressContainer.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        const clampedPos = Math.max(0, Math.min(1, pos));
+        video.currentTime = clampedPos * video.duration;
       }
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        progressContainer.classList.remove('dragging');
-      }
-    });
-
-    function seek(e) {
-      const rect = progressContainer.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      const clampedPos = Math.max(0, Math.min(1, pos));
-      video.currentTime = clampedPos * video.duration;
-    }
-
-    function formatTime(seconds) {
-      if (!seconds || isNaN(seconds)) return "0:00";
-      const minutes = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
   }
+
+  function formatTime(seconds) {
+    if (!seconds || isNaN(seconds)) return "0:00";
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  setupVideoControls('teaser');
+  setupVideoControls('user-study');
 
   /* Video Comparison Slider Logic */
   const comparisonContainers = document.querySelectorAll('.video-comparison-container');
@@ -207,13 +218,13 @@ $(document).ready(function () {
   const videoState = {
     scene: '17',
     methods: {
-      left: 'base',
-      right: 'gt'
+      left: 'gt', // Always Ground Truth
+      right: 'hybrid' // Default to Hybrid or whatever user wants
     }
   };
 
   const methodSelectors = {
-    left: document.getElementById('left-method-selector'),
+    // left: document.getElementById('left-method-selector'), // Removed
     right: document.getElementById('right-method-selector')
   };
 
@@ -229,18 +240,14 @@ $(document).ready(function () {
 
   // Helper to get formatted filename
   function getVideoPath(method, scene) {
-    // Handle the specific inconsistency for hybrid scene 35
-    if (method === 'hybrid' && scene === '35') {
-      return `./static/videos/hybrid/${method}-clip-00000${scene}.mp4`; // Note the extra 0
-    }
     return `./static/videos/hybrid/${method}-clip-0000${scene}.mp4`;
   }
 
   function updateVideoSources() {
-    // Update Left Video
+    // Update Left Video (Always GT)
     const leftPath = getVideoPath(videoState.methods.left, videoState.scene);
     videos.left.src = leftPath;
-    labels.left.textContent = getMethodLabel(videoState.methods.left);
+    labels.left.textContent = "Ground Truth"; // Fixed label
 
     // Update Right Video
     const rightPath = getVideoPath(videoState.methods.right, videoState.scene);
@@ -250,12 +257,8 @@ $(document).ready(function () {
     // Reload videos to apply changes
     videos.left.load();
     videos.right.load();
-    // Attempt play (browsers might block unmuted autoplay, but these are muted)
-    // videos.left.play().catch(e => console.log("Auto-play prevented (left)", e));
-    // videos.right.play().catch(e => console.log("Auto-play prevented (right)", e));
 
-    // Sync videos? They are short loops so maybe not strictly necessary for this demo, 
-    // but resetting time to 0 ensures they start together.
+    // Sync videos
     videos.left.currentTime = 0;
     videos.right.currentTime = 0;
   }
@@ -266,16 +269,14 @@ $(document).ready(function () {
   }
 
   function updateActiveButtons() {
-    // Update Method Selectors
-    ['left', 'right'].forEach(side => {
-      const buttons = methodSelectors[side].querySelectorAll('button');
-      buttons.forEach(btn => {
-        if (btn.dataset.method === videoState.methods[side]) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
+    // Update Method Selector (Right only)
+    const buttons = methodSelectors.right.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn.dataset.method === videoState.methods.right) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
     });
 
     // Update Scene Selector
@@ -290,19 +291,17 @@ $(document).ready(function () {
   }
 
   // Initialize
-  if (methodSelectors.left && methodSelectors.right && sceneSelector) {
-    // Event Listeners for Method Selectors
-    ['left', 'right'].forEach(side => {
-      methodSelectors[side].addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-          const newMethod = e.target.dataset.method;
-          if (newMethod !== videoState.methods[side]) {
-            videoState.methods[side] = newMethod;
-            updateVideoSources();
-            updateActiveButtons();
-          }
+  if (methodSelectors.right && sceneSelector) {
+    // Event Listeners for Method Selector (Right only)
+    methodSelectors.right.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const newMethod = e.target.dataset.method;
+        if (newMethod !== videoState.methods.right) {
+          videoState.methods.right = newMethod;
+          updateVideoSources();
+          updateActiveButtons();
         }
-      });
+      }
     });
 
     // Event Listener for Scene Selector
@@ -319,8 +318,116 @@ $(document).ready(function () {
 
     // Initial Update
     updateActiveButtons();
-    // Optional: force load initial sources just to be sure, though HTML has hardcoded initial values
-    // updateVideoSources(); 
+    updateVideoSources(); // Ensure initial state matches logic (GT left, Hybrid right)
+  }
+
+  /* Joint Video Comparison Logic */
+  const jointVideoState = {
+    scene: '01',
+    methods: {
+      left: 'gt', // Always Ground Truth
+      right: 'joint' // Default to Ours
+    }
+  };
+
+  const jointMethodSelectors = {
+    right: document.getElementById('joint-right-method-selector')
+  };
+
+  const jointSceneSelector = document.getElementById('joint-scene-selector');
+  const jointVideos = {
+    left: document.getElementById('joint-video-left'),
+    right: document.getElementById('joint-video-right')
+  };
+  const jointLabels = {
+    left: document.getElementById('joint-label-left'),
+    right: document.getElementById('joint-label-right')
+  };
+
+  // Helper to get formatted filename for joint videos
+  function getJointVideoPath(method, scene) {
+    // Scene names in joint folder are 01, 17. 
+    // Files: [method]-clip-000001.mp4, [method]-clip-000017.mp4
+    // We can just use the scene ID directly if it is already '01' or '17'
+    const scenePadded = scene.toString().padStart(6, '0');
+    return `./static/videos/joint/${method}-clip-${scenePadded}.mp4`;
+  }
+
+  function updateJointVideoSources() {
+    // Update Left Video (Always GT)
+    const leftPath = getJointVideoPath(jointVideoState.methods.left, jointVideoState.scene);
+    jointVideos.left.src = leftPath;
+    jointLabels.left.textContent = "Ground Truth";
+
+    // Update Right Video
+    const rightPath = getJointVideoPath(jointVideoState.methods.right, jointVideoState.scene);
+    jointVideos.right.src = rightPath;
+    jointLabels.right.textContent = getJointMethodLabel(jointVideoState.methods.right);
+
+    // Reload videos
+    jointVideos.left.load();
+    jointVideos.right.load();
+
+    // Sync
+    jointVideos.left.currentTime = 0;
+    jointVideos.right.currentTime = 0;
+  }
+
+  function getJointMethodLabel(methodKey) {
+    const btn = document.querySelector(`#joint-right-method-selector button[data-method="${methodKey}"]`);
+    return btn ? btn.textContent : methodKey;
+  }
+
+  function updateJointActiveButtons() {
+    // Update Method Selector (Right only)
+    const buttons = jointMethodSelectors.right.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn.dataset.method === jointVideoState.methods.right) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Update Scene Selector
+    const sceneButtons = jointSceneSelector.querySelectorAll('button');
+    sceneButtons.forEach(btn => {
+      if (btn.dataset.scene === jointVideoState.scene) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  // Initialize Joint
+  if (jointMethodSelectors.right && jointSceneSelector) {
+    // Method Listener
+    jointMethodSelectors.right.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const newMethod = e.target.dataset.method;
+        if (newMethod !== jointVideoState.methods.right) {
+          jointVideoState.methods.right = newMethod;
+          updateJointVideoSources();
+          updateJointActiveButtons();
+        }
+      }
+    });
+
+    // Scene Listener
+    jointSceneSelector.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const newScene = e.target.dataset.scene;
+        if (newScene !== jointVideoState.scene) {
+          jointVideoState.scene = newScene;
+          updateJointVideoSources();
+          updateJointActiveButtons();
+        }
+      }
+    });
+
+    updateJointActiveButtons();
+    updateJointVideoSources();
   }
 
 })

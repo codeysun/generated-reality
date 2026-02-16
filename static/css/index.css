@@ -407,3 +407,12 @@ body {
 .scene-selector {
   margin-top: 1rem;
 }
+
+#nvs-video-container,
+#joint-nvs-video-container {
+  aspect-ratio: 1 / 1;
+  max-width: 512px;
+  /* Optional: limit width so it doesn't get too huge */
+  margin: 0 auto;
+  /* Center it */
+}
