@@ -118,14 +118,32 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h4 class="title is-4" style="color: #3273dc; margin-bottom: 1rem;">TL;DR</h4>
+          <h4 class="title is-4" style="color: #3273dc; margin-bottom: 1rem;">Abstract</h4>
           <div class="content has-text-justified"
-            style="font-size: 1.25rem; line-height: 1.6; background-color: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3273dc;">
-            <p>
-              <strong>Generated Reality</strong> is a concept that turns human-tracked data into an
-              autoregressively generated video, enabling interactive human-centric experiences supporting dexterous
-              hand-object interacctions.
+            style="line-height: 1.6; background-color: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3273dc;">
+            <p style="margin-bottom: 0;font-size: 1.25rem;">
+              <strong style="color: #3273dc">TL;DR:</strong> <strong>Generated Reality</strong> turns human-tracked
+              data into an autoregressively generated video, enabling interactive human-centric experiences supporting
+              dexterous hand-object interactions.
             </p>
+            <div id="extra-abstract" class="content has-text-justified">
+              <p>
+                Extended reality (XR) demands generative models that respond to users’ tracked real-world motion, yet
+                current video world models accept only coarse control signals such as text or keyboard input, limiting
+                their utility for embodied interaction. We introduce a human-centric video world model that is
+                conditioned on both tracked head pose and joint-level hand poses.
+                For this purpose, we evaluate existing diffusion model conditioning strategies and propose an effective
+                mechanism for 3D head and hand control, enabling dexterous hand-object interactions.
+                We train a bidirectional video diffusion model teacher using this strategy and distill it into a causal,
+                interactive system that generates egocentric virtual environments. We evaluate this generated reality
+                system with human subjects and demonstrate improved task performance as well as a significantly higher
+                level of perceived amount of control over the performed actions compared with relevant baselines.
+              </p>
+            </div>
+            <div id="abstract-expand-text"
+              style="cursor: pointer; color: #3273dc; margin-top: 0.5rem; text-align: center;">
+              <i class="fas fa-angle-down"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -326,6 +344,7 @@
     </div>
     <!--/ How it works. -->
     <br>
+    <br>
 
     <!-- Ablations -->
     <div class="columns is-centered">
@@ -442,6 +461,7 @@
     <!--/ Joint Conditioning. -->
 
     <!--/ Ablations. -->
+    <br>
     <br>
 
     <!-- System -->

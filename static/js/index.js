@@ -430,4 +430,16 @@ $(document).ready(function () {
     updateJointVideoSources();
   }
 
+
+  /* Abstract Expansion Logic */
+  const expandText = document.getElementById('abstract-expand-text');
+  const extraAbstract = document.getElementById('extra-abstract');
+
+  if (expandText && extraAbstract) {
+    expandText.addEventListener('click', () => {
+      extraAbstract.classList.toggle('expanded');
+      expandText.classList.toggle('expanded');
+    });
+  }
+
 })
