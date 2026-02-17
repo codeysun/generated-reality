@@ -356,12 +356,17 @@
               approach that captures hand motion more reliably. Our method achieves the best hand pose accuracy among
               all baselines.
             </p>
+            <!-- <p>
+              Below compares generated videos with varying hand conditioning methods (right) with the ground truth
+              (left).
+            </p> -->
 
             <div class="item">
               <!-- Method selectors -->
               <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem;">
                 <div>
-                  <p class="has-text-centered is-size-7" style="margin-bottom: 0.5rem;"><strong>Method:</strong>
+                  <p class="has-text-centered is-size-7" style="margin-bottom: 0.5rem;"><strong>Hand Conditioning
+                      Method:</strong>
                   </p>
                   <div class="method-selector" id="right-method-selector">
                     <button data-method="base">Base</button>
@@ -413,12 +418,17 @@
               Our joint conditioning model disambiguates hand and head motion, enabling accurate object
               interactions.
             </p>
+            <!-- <p>
+              Below compares generated videos with varying conditioning methods (right) with the ground truth
+              (left).
+            </p> -->
 
             <div class="item">
               <!-- Method selectors -->
               <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem;">
                 <div>
-                  <p class="has-text-centered is-size-7" style="margin-bottom: 0.5rem;"><strong>Method:</strong>
+                  <p class="has-text-centered is-size-7" style="margin-bottom: 0.5rem;"><strong>Joint Conditioning
+                      Method:</strong>
                   </p>
                   <div class="method-selector" id="joint-right-method-selector">
                     <button data-method="camera">Camera-Ctrl</button>
@@ -465,7 +475,11 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">The Generated Reality System</h2>
-
+        <video id="user-study" muted autoplay loop playsinline height="100%">
+          <source src="static/videos/user_study_video.mp4" type="video/mp4">
+        </video>
+        <br>
+        <br>
         <div class="content has-text-justified">
           <p>
             We develop our Generated Reality system by distilling the bidirectional model into an autoregressive variant
@@ -474,19 +488,11 @@
             significantly more accurate task completion and higher perceived levels of control compared to the
             baseline.
           </p>
-          <video id="user-study" muted autoplay loop playsinline height="100%">
-            <source src="static/videos/user_study_final.mp4" type="video/mp4">
-          </video>
-          <div class="video-controls">
-            <button class="play-pause-btn" id="user-study-play-pause-btn">
-              <i class="fas fa-pause"></i>
-            </button>
-            <div class="progress-container" id="user-study-progress-container">
-              <div class="progress-bar" id="user-study-progress-bar"></div>
-            </div>
-            <span class="time-display" id="user-study-time-display">0:00 / 0:00</span>
-          </div>
         </div>
+        <br>
+        <img src="static/images/user_study_results.png" alt="User Study Results"
+          class="user-study-results media-content" width="60%"
+          style="display: block; margin-left: auto; margin-right: auto;">
       </div>
     </div>
     <!--/ System -->
