@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/toggle.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -168,10 +169,14 @@
   <!-- <br> -->
   <div class="hero-body">
     <div class="columns is-centered has-text-centered">
-      <div class="content has-text-justified">
+      <div class="content overlay-caption-container">
         <p>
-          <i>Hover to visualize the (2D) hand pose conditioning. 3D hand and head pose conditioning not shown.</i>
+          <i>Toggle to visualize the (2D) hand pose conditioning. 3D hand and head pose conditioning not shown.</i>
         </p>
+        <label class="video-toggle-switch">
+          <input type="checkbox" id="overlay-toggle">
+          <span class="video-toggle-slider video-toggle-round"></span>
+        </label>
       </div>
     </div>
 
@@ -179,69 +184,63 @@
     <div id="results-carousel" class="carousel results-carousel">
 
       <div class="item">
-        <!-- Video overlay hover -->
-        <div class="video-overlay-container" id="space-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="space-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="space-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/space.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="space" autoplay muted loop playsinline>
+          <source src="static/videos/space.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">The viewer, wearing bulky astronaut gloves, grips the shaft of a waving flag. On the flag
+          is the emblem of an alien civilization: a circular sigil made of angular glyphs surrounding a stylized
+          three-moon icon. A vibrant alien landscape under a coloful sky. The ground is rocky and covered with alien
+          vegetation. In the distance, alien humanoid creatures stare at the viewer, as if greeting the waving flag.
+        </p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="dog-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="dog-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/04_pet_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="dog-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/dog.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="dog" autoplay muted loop playsinline>
+          <source src="static/videos/dog.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A bright outdoor park scene on a clear day, with soft green grass and scattered trees
+          swaying gently in a light breeze. A friendly golden retriever sits obediently facing towards the viewer. The
+          viewer is bent down and reaches out to pet the dog. The dog’s golden coat catches the sunlight, its mouth
+          slightly open in a relaxed pant and its tail wagging eagerly. The camera emphasizes the close-up interaction,
+          the dog’s happy expression and subtle body shifts, and the warm, calm atmosphere.
+        </p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="fight-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="fight-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/02_fight_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="fight-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/fight.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="fight" autoplay muted loop playsinline>
+          <source src="static/videos/fight.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A gritty medieval fantasy battle scene set in a torchlit stone corridor of an ancient
+          dungeon. The air is dusty and cold, with flickering firelight casting long shadows across mossy bricks and
+          scattered bones. The viewer’s left hand grips wooden torch, while the right hand wields a steel longsword with
+          a worn leather hilt. A soldier in rusted armor charges toward the viewer. The camera emphasizes realistic hand
+          and weapon motion, dynamic combat movement, and cinematic medieval lighting, with subtle motion blur and a
+          tense, immersive game-like feel.</p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="push2-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="push2-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/06_push_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="push2-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/push2.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="push2" autoplay muted loop playsinline>
+          <source src="static/videos/push2.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A simple interior hallway scene with a closed wooden door. The viewer pushes the door
+          open, revealing a magical winter forest. Beyond the threshold, snow blankets the ground and tall pine trees,
+          soft snowflakes drift through the air, and pale blue light fills the scene. A vintage lamppost glows warmly
+          among the trees, contrasting with the cold surroundings, as the door swings wider and reveals more of the
+          silent, enchanting landscape.</p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="boat-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="boat-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="boat-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/boat.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="boat" autoplay muted loop playsinline>
+          <source src="static/videos/boat.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A small sailboat at sea. The viewer stands in the cockpit, feet braced on the deck as the
+          boat gently rocks over rolling swells. Wearing sun-faded sailing gloves, the viewer grips a thick halyard rope
+          with both hands and pulls it taut. The rope is coarse and slightly wet, with salt spray beading on the fibers;
+          it slides through the gloves with subtle friction. With each pull, the mainsail rises up the mast and begins
+          to fill, its white sailcloth snapping and fluttering before catching the wind and smoothing into a taut curve.
+          The camera shows the viewer’s forearms straining, the rope running through a metal block, and the sail
+          climbing and swaying in the wind. Bright midday sun, deep blue ocean, distant horizon line, seabirds circling
+          far away.</p>
       </div>
 
     </div>
@@ -249,74 +248,71 @@
     <div id="results-carousel" class="carousel results-carousel">
 
       <div class="item">
-        <div class="video-overlay-container" id="golf-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="golf-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/00_golf_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="golf-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/golf.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="golf" autoplay muted loop playsinline>
+          <source src="static/videos/golf.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A vibrant scene of Kenyan golfers at a lush green golf course on a sunny day. The
+          golfers, dressed in casual yet stylish attire, are teeing off with animated expressions, showcasing their
+          enthusiasm for the game. Rolling hills and pristine greens stretch out behind them, creating a picturesque
+          backdrop. In the foreground, a golf buggy and a caddy stand ready, adding to the serene atmosphere.
         </p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="boxing-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="boxing-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/02_fight_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="boxing-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/boxing.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="boxing" autoplay muted loop playsinline>
+          <source src="static/videos/boxing.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A bright, roaring boxing arena—a regulation ring with white ropes, blue canvas, and
+          glaring overhead spotlights. The viewer wears red boxing gloves, but the focus is on the opponent: a large,
+          human-sized cat standing upright in the center of the ring, broad-shouldered and imposing, fur bristling under
+          the harsh arena lights. The cat also wears boxing gloves, its eyes lock onto the camera with predatory
+          intensity as its ears twitch and its tail snaps with impatience.
         </p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="torch-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="torch-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/01_waving_flag_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="torch-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/torch.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        </p>
+        <video id="torch" autoplay muted loop playsinline>
+          <source src="static/videos/torch.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">The viewer, wearing slightly weathered beachwear and a simple woven wrist bracelet, holds
+          a tiki torch, gripping a smooth bamboo shaft wrapped with dark twine near the handle. The torch’s head is a
+          carved bamboo-and-metal basket with a cloth wick; a small, steady flame flickers gently, casting warm orange
+          light across the viewer’s hands and forearms. The scene is set on a Hawaii beach at golden-hour sunset: soft
+          sand underfoot, rolling turquoise waves, and distant volcanic mountains silhouetted against a pink-and-amber
+          sky. Palm trees sway in a light trade wind; torchlight reflections shimmer on wet sand near the shoreline. A
+          relaxed beach gathering is happening nearby—people in soft focus chatting, a small ukulele circle, and
+          scattered tiki torches planted in the sand forming a warm pathway. The camera remains natural and handheld,
+          with subtle breathing motion and slight head turns to take in the ocean, the torch flame, and the sunset
+          horizon.</p>
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="clap-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="clap-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/05_wave_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="clap-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/clap.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="clap" autoplay muted loop playsinline>
+          <source src="static/videos/clap.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">A quaint A-frame cottage made of wood and glass, nestled off the coast of Mexico. The
+          cottage sits on a small peninsula surrounded by crystal-clear turquoise waters and sandy beaches. The exterior
+          is crafted from weathered wooden planks and large glass windows, offering panoramic views of the ocean. Palm
+          trees sway gently in the background, and colorful Mexican flowers adorn the front of the cottage. The sun sets
+          in the distance, casting a warm golden glow over the scene. Wide shot, capturing the serene coastal landscape
+          and the charming cottage.
         </p>
+
       </div>
 
       <div class="item">
-        <div class="video-overlay-container" id="cat-video-container">
-          <div class="video-wrapper">
-            <video class="video-left" id="cat-video-left" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/custom_skeletons/03_cat_15fps.mp4" type="video/mp4">
-            </video>
-            <video class="video-right" id="cat-video-right" autoplay muted loop playsinline preload="metadata">
-              <source src="static/videos/cat.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
+        <video id="cat" autoplay muted loop playsinline>
+          <source src="static/videos/cat.mp4" type="video/mp4">
+        </video>
+        <p class="prompt-text">The viewer’s hands hold a cat wand toy with a thin string dangling a small fuzzy pom‑pom
+          ball that bounces and sways as the viewer flicks their wrist. A cozy, sunlit living room scene with warm
+          afternoon light streaming through sheer curtains, casting soft shadows across a wooden floor and a plush rug.
+          In the foreground, a playful domestic cat crouches low with focused eyes and twitching tail, then springs
+          forward, swiping repeatedly at the fuzzball with quick paw strikes. The camera highlights natural hand motion,
+          the toy’s swinging arc, the cat’s fast reactions and shifting posture, and small details like fur texture and
+          whisker movement, creating an intimate, playful, game-like interaction.
+        </p>
       </div>
-
 
     </div>
     <br>
@@ -510,102 +506,6 @@
 }</code></pre>
   </div>
 </section>
-
-
-
-
-
-
-<!-- Demo -->
-<!-- <section class="section">
-    <div class="content-container">
-      <h2 class="title">Text-to-video generations</h2>
-
-      <p class="content-left">
-        Leveraging the implicit world knowledge of foundation video models, our system generalizes to diverse scenarios
-        with complex, human-centric interactions.
-      </p>
-
-      <div class="video-grid-2col">
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/05_wave.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            A quaint <b>A-frame cottage</b>… turquoise waters and sandy beaches… palm trees sway in the background…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/04_pet.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            A bright <b>outdoor park</b> on a clear day… a friendly <b>golden retriever</b> sits obediently…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/02_fight.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            A gritty <b>medieval dungeon</b>… the right hand wields a <b>steel longsword</b>… an <b>armored soldier</b>
-            charges forward…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/0_golf.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            A lush green <b>golf course</b>… hands are <b>swinging a golf club</b>… a golf buggy and caddy stand ready…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/06_push.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            <b>Pushes the wooden door</b> open… revealing a magical <b>winter forest</b>… a vintage lamppost glows
-            warmly…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/01_steering.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            <b>Driving on a highway</b> in a modern car… a green countryside with trees on a bright clear summer day…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/03_cat.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            <b>Holding a cat wand toy</b> with a fuzzy pom-pom ball… a <b>playful domestic cat</b> swipes repeatedly…
-          </figcaption>
-        </figure>
-
-        <figure class="vid-card">
-          <video class="responsive-video" muted autoplay loop playsinline preload="metadata">
-            <source src="static/videos/07_waving.mp4" type="video/mp4">
-          </video>
-          <figcaption class="vid-cap">
-            Wearing <b>astronaut gloves</b>, grips the shaft of <b>a waving flag</b>… a vibrant <b>alien landscape</b>
-            under a colorful sky…
-          </figcaption>
-        </figure>
-
-      </div>
-    </div>
-  </section> -->
 
 <footer class="footer">
   <div class="container" align="center">

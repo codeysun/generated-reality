@@ -442,4 +442,35 @@ $(document).ready(function () {
     });
   }
 
+  /* Video Overlay Toggle Logic */
+  const overlayToggle = document.getElementById('overlay-toggle');
+
+  if (overlayToggle) {
+    overlayToggle.checked = false;
+    overlayToggle.addEventListener('change', function () {
+      const isOverlay = this.checked;
+      const videos = document.querySelectorAll('.results-carousel .item video');
+
+      videos.forEach(video => {
+        const source = video.querySelector('source');
+        if (!source) return;
+
+        let src = source.getAttribute('src');
+        if (isOverlay) {
+          // Switch to overlay version if not already
+          if (!src.includes('_overlay.mp4')) {
+            src = src.replace('.mp4', '_overlay.mp4');
+          }
+        } else {
+          // Switch back to normal version
+          src = src.replace('_overlay.mp4', '.mp4');
+        }
+
+        source.setAttribute('src', src);
+        video.load();
+        video.play(); // Ensure it keeps playing
+      });
+    });
+  }
+
 })
