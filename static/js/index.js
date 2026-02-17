@@ -216,7 +216,7 @@ $(document).ready(function () {
 
   /* Advanced Video Comparison Logic */
   const videoState = {
-    scene: '17',
+    scene: '51',
     methods: {
       left: 'gt', // Always Ground Truth
       right: 'hybrid' // Default to Hybrid or whatever user wants
